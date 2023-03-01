@@ -1,24 +1,14 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 
-const initialState = {
-  counter: 0,
-};
+import counterSlice from './counter';
+import authSlice from './auth';
 
-const counterReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'increment':
-      return {
-        counter: state.counter + 1,
-      };
-    case 'decrement':
-      return {
-        counter: state.counter - 1,
-      };
-    default:
-      return state;
-  }
-};
-
-const store = createStore(counterReducer);
+// configureStore를 사용하면 combineReducer처럼 여러개의 리듀서를 합칠 수 있다.
+const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+    auth: authSlice.reducer,
+  },
+});
 
 export default store;
